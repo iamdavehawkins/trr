@@ -84,12 +84,71 @@
         .newsletter-form input[type="email"] {
             width: 90%;
             max-width: 280px;
-            padding: 8px;
             margin: 10px 0;
+        }
+        
+        .newsletter-form input[type="email"],
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 8px;
             background-color: #222222;
             border: 1px solid #444444;
             color: #FFFFFF;
-            font-family: "Courier New", Courier, monospace;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Form Styling */
+        .music-submission-form {
+            text-align: left;
+            background-color: #111111;
+            border: 1px solid #FFFFFF;
+            padding: 20px 30px;
+            font-family: 'Courier New', monospace;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+        
+        .radio-group {
+            margin-top: 5px;
+        }
+        
+        .radio-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .radio-label input[type="radio"] {
+            margin-right: 8px;
+        }
+        
+        .submit-button {
+            background-color: #333333;
+            color: #FFFFFF;
+            border: 1px solid #FFFFFF;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover {
+            background-color: #444444;
         }
         
         .newsletter-form input[type="submit"] {
@@ -173,10 +232,68 @@
     <div class="divider"></div>
     
     <div style="margin: 15px auto; width: 80%; max-width: 400px;">
+        <h3 style="color: #CCCCCC; font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; text-align: center;">SUBMIT YOUR INFO</h3>
+        <form
+          action="https://formspree.io/f/xldbqajg"
+          method="POST"
+          class="music-submission-form"
+        >
+          <div class="form-group">
+            <label for="threads-username">Threads username*</label>
+            <input type="text" id="threads-username" name="threads-username" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="artist-name">Artist Name*</label>
+            <input type="text" id="artist-name" name="artist-name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="spotify-url">Spotify Artist Page URL*</label>
+            <input type="url" id="spotify-url" name="spotify-url" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="bandcamp-url">Bandcamp artist home page (optional)</label>
+            <input type="url" id="bandcamp-url" name="bandcamp-url">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email (Optional, if you'd like occasional updates from Dave Hawkins, the artist)</label>
+            <input type="email" id="email" name="email">
+          </div>
+          
+          <div class="form-group">
+            <label>How much AI is used in the production of your music?*</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="ai-usage" value="None" required>
+                None - Fully Human Made
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="ai-usage" value="Some">
+                Some - (e.g. AI generated samples, but mostly recorded human performances)
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="ai-usage" value="Heavy">
+                Heavy - (AI produced vocals, AI lyrics, AI instrumentals)
+              </label>
+            </div>
+          </div>
+          
+          <div style="text-align: center;">
+            <button type="submit" class="submit-button">Submit</button>
+          </div>
+        </form>
+    </div>
+
+    <div class="divider"></div>
+    
+    <div style="margin: 15px auto; width: 80%; max-width: 400px;">
         <h3 style="color: #CCCCCC; font-size: 14px; letter-spacing: 2px; margin-bottom: 10px;">SAVE PLAYLIST</h3>
         <iframe style="border-radius: 0; border: 0; width: 100%; height: 380px;" src="https://open.spotify.com/embed/playlist/12YD0wjBiyeaAZwCLLEQGa?utm_source=generator&theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
-    
+
     <div class="divider"></div>
     
     <div style="margin: 15px auto; width: 80%; max-width: 400px;">
