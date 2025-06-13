@@ -237,6 +237,8 @@
           action="https://formspree.io/f/xldbqajg"
           method="POST"
           class="music-submission-form"
+          id="music-form"
+          onsubmit="return validateSpotifyUrl();"
         >
           <div class="form-group">
             <label for="threads-username">Threads username*</label>
@@ -251,6 +253,7 @@
           <div class="form-group">
             <label for="spotify-url">Spotify Artist Page URL*</label>
             <input type="url" id="spotify-url" name="spotify-url" required>
+            <div id="spotify-url-error" style="color: #ff6666; font-size: 12px; margin-top: 5px; display: none;">URL must be a Spotify artist page (containing "artist" in the URL)</div>
           </div>
           
           <div class="form-group">
@@ -313,7 +316,24 @@
     </div>
     
     <div class="footer">
-        <p>© <script>document.write(new Date().getFullYear())</script> Dave Hawkins</p>
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> Dave Hawkins | <a href="https://iamdavehawkins.com" style="color: #999999; text-decoration: none;">iamdavehawkins.com</a></p>
     </div>
+    
+    <script>
+        function validateSpotifyUrl() {
+            const spotifyUrlInput = document.getElementById('spotify-url');
+            const spotifyUrl = spotifyUrlInput.value.toLowerCase();
+            const errorElement = document.getElementById('spotify-url-error');
+            
+            if (!spotifyUrl.includes('artist')) {
+                errorElement.style.display = 'block';
+                spotifyUrlInput.focus();
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+    </script>
 </body>
 </html>
