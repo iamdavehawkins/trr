@@ -5,33 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Threads Release Radar</title>
     <link rel="icon" href="RRLogo.png" type="image/png">
+    <!-- Font preloading for performance -->
+    <link rel="preload" href="../fonts/Compadre-Extended.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../fonts/DegularText-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <style>
+        /* CSS Variables for Brand Colors */
+        :root {
+            --color-primary: #9B4A34;     /* Muted terracotta / rust red */
+            --color-secondary: #4F6A89;   /* Washed-out denim blue */
+            --color-accent: #D8A34A;      /* Mustard yellow */
+            --color-paper: #F4F0E6;       /* Off-white paper */
+            --color-charcoal: #222222;    /* Charcoal black */
+        }
+        
+        /* Custom Font Declarations */
+        @font-face {
+            font-family: 'Degular Text';
+            src: url('../fonts/DegularText-Regular.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/DegularText-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Compadre Extended';
+            src: url('../fonts/Compadre-Extended.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/Compadre-Extended.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Vulf Mono';
+            src: url('../fonts/Vulf_Mono-Light_Italic_web.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/Vulf_Mono-Light_Italic_web.woff2') format('woff2');
+            font-weight: 300;
+            font-style: italic;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Obviously Compressed';
+            src: url('../fonts/Obviously-CompressedMedium.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/Obviously-CompressedMedium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            overflow-x: hidden;
+        }
+        
         body {
-            font-family: "Courier New", Courier, monospace;
-            background-color: #000000;
-            color: #FFFFFF;
+            font-family: 'Degular Text', Georgia, serif;
+            background-color: var(--color-charcoal);
+            color: var(--color-paper);
             max-width: 800px;
-            margin: 10px auto;
-            padding: 10px;
+            margin: 0 auto;
+            padding: 20px;
             text-align: center;
             line-height: 1.5;
+            font-size: 16px;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+        
+        /* Subtle paper texture overlay for analog vibe */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 4px 4px, 6px 6px;
+            pointer-events: none;
+            z-index: -1;
         }
         
         h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-            letter-spacing: 3px;
+            font-family: 'Compadre Extended', Georgia, serif;
+            font-size: 1.8em;
+            margin: 10px 0;
+            letter-spacing: 1.5px;
+            color: var(--color-paper);
         }
         
         h2 {
-            font-size: 16px;
-            color: #CCCCCC;
+            font-family: 'Degular Text', Georgia, serif;
+            font-size: 1.3em;
+            color: var(--color-secondary);
             font-weight: normal;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            margin: 0 0 15px 0;
+        }
+        
+        h3 {
+            font-family: 'Compadre Extended', Georgia, serif;
+            font-size: 1.5em;
+            font-weight: normal;
+            color: var(--color-accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 25px 0 20px 0;
         }
         
         .profile {
-            margin: 5px auto;
+            margin: 0 auto 2px auto;
         }
         
         .profile img {
@@ -39,52 +130,77 @@
             height: 100px;
             border-radius: 0;
             filter: grayscale(100%);
+            border: 1px solid var(--color-paper);
+            box-shadow: 0 0 0 2px var(--color-charcoal), 0 0 0 3px var(--color-paper);
         }
         
         .links {
-            margin-top: 5px;
+            margin-top: 3px;
         }
         
         .link-item {
             display: flex;
             align-items: center;
-            margin: 15px auto;
-            padding: 10px 15px;
+            margin: 8px auto;
+            padding: 14px 18px;
             width: 80%;
             max-width: 400px;
-            background-color: #111111;
-            border: 1px solid #FFFFFF;
+            background-color: var(--color-primary);
+            border: 1px solid var(--color-charcoal);
             text-decoration: none;
-            color: #FFFFFF;
-            font-weight: normal;
+            color: var(--color-paper);
+            font-family: 'Degular Text', Georgia, serif;
+            font-size: 1.1em;
+            font-weight: bold;
             letter-spacing: 1px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
         
         .link-item:hover {
-            background-color: #333333;
+            background-color: var(--color-accent);
+            color: var(--color-charcoal);
+        }
+        
+        .link-item:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
         }
         
         .icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 15px;
-            fill: #FFFFFF;
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            fill: currentColor;
         }
         
         .newsletter-form {
-            margin: 15px auto;
+            margin: 8px auto;
             width: 80%;
             max-width: 400px;
-            background-color: #111111;
-            border: 1px solid #FFFFFF;
+            background-color: var(--color-secondary);
+            border: 1px solid var(--color-primary);
             padding: 15px;
             text-align: center;
+            border-radius: 8px;
         }
         
         .newsletter-form input[type="email"] {
             width: 90%;
             max-width: 280px;
-            margin: 10px 0;
+            padding: 10px;
+            margin: 8px 0;
+            background-color: var(--color-paper);
+            border: 1px solid var(--color-primary);
+            color: var(--color-charcoal);
+            font-family: 'Degular Text', Georgia, serif;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .newsletter-form input[type="email"]:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 1px;
         }
         
         .newsletter-form input[type="email"],
@@ -92,22 +208,24 @@
         .form-group input[type="url"],
         .form-group input[type="email"] {
             width: 100%;
-            padding: 8px;
-            background-color: #222222;
-            border: 1px solid #444444;
-            color: #FFFFFF;
-            font-family: 'Courier New', monospace;
+            padding: 10px;
+            background-color: var(--color-paper);
+            border: 1px solid var(--color-primary);
+            color: var(--color-charcoal);
+            font-family: 'Degular Text', Georgia, serif;
+            border-radius: 4px;
         }
         
         /* Form Styling */
         .music-submission-form {
             text-align: left;
-            background-color: #111111;
-            border: 1px solid #FFFFFF;
+            background-color: rgba(79, 106, 137, 0.08);
+            border: 1px solid var(--color-secondary);
             padding: 20px 30px;
-            font-family: 'Courier New', monospace;
+            font-family: 'Degular Text', Georgia, serif;
             max-width: 340px;
             margin: 0 auto;
+            border-radius: 8px;
         }
         
         .form-group {
@@ -118,7 +236,8 @@
             display: block;
             margin-bottom: 5px;
             font-size: 14px;
-            color: #FFFFFF;
+            color: var(--color-paper);
+            font-family: 'Degular Text', Georgia, serif;
         }
         
         .radio-group {
@@ -129,6 +248,7 @@
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
+            font-family: 'Degular Text', Georgia, serif;
         }
         
         .radio-label input[type="radio"] {
@@ -136,51 +256,91 @@
         }
         
         .submit-button {
-            background-color: #333333;
-            color: #FFFFFF;
-            border: 1px solid #FFFFFF;
+            background-color: var(--color-primary);
+            color: var(--color-paper);
+            border: 1px solid var(--color-charcoal);
             padding: 10px 20px;
             cursor: pointer;
-            font-family: 'Courier New', monospace;
+            font-family: 'Degular Text', Georgia, serif;
             letter-spacing: 1px;
             margin-top: 10px;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-weight: bold;
         }
         
         .submit-button:hover {
-            background-color: #444444;
+            background-color: var(--color-accent);
+            color: var(--color-charcoal);
+        }
+        
+        .submit-button:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
         }
         
         .newsletter-form input[type="submit"] {
-            background-color: #333333;
-            color: #FFFFFF;
-            border: 1px solid #FFFFFF;
-            padding: 8px 15px;
+            background-color: var(--color-primary);
+            color: var(--color-paper);
+            border: 1px solid var(--color-charcoal);
+            padding: 10px 16px;
             cursor: pointer;
-            font-family: "Courier New", Courier, monospace;
+            font-family: 'Degular Text', Georgia, serif;
             letter-spacing: 1px;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
         
         .newsletter-form input[type="submit"]:hover {
-            background-color: #444444;
+            background-color: var(--color-accent);
+            color: var(--color-charcoal);
+        }
+        
+        .newsletter-form input[type="submit"]:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
         }
         
         .newsletter-form p {
-            font-size: 10px;
-            margin-top: 10px;
+            font-size: 11px;
+            margin-top: 8px;
+            color: var(--color-paper);
         }
         
         .newsletter-form a {
-            color: #999999;
+            color: var(--color-accent);
             text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .newsletter-microcopy {
+            font-family: 'Vulf Mono', 'Courier New', monospace;
+            font-size: 10px;
+            font-style: italic;
+            color: var(--color-paper);
+            opacity: 0.8;
+            margin-top: 4px;
         }
         
         .footer {
-            margin-top: 5px;
-            font-size: 12px;
-            color: #999999;
-            border-top: 1px solid #333333;
-            padding-top: 5px;
+            margin-top: 20px;
+            font-family: 'Vulf Mono', 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--color-accent);
+            border-top: 1px solid var(--color-secondary);
+            padding-top: 10px;
+        }
+        
+        .footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            color: var(--color-paper);
         }
         
         .blink {
@@ -195,16 +355,117 @@
         
         .divider {
             height: 1px;
-            background-color: #333333;
-            margin: 5px 0;
+            background-color: var(--color-secondary);
+            margin: 15px 0;
+            border-radius: 1px;
         }
         
         pre {
-            font-family: "Courier New", Courier, monospace;
+            font-family: 'Vulf Mono', 'Courier New', monospace;
             font-size: 12px;
             line-height: 1.2;
             margin: 20px 0;
-            color: #CCCCCC;
+            color: var(--color-paper);
+            opacity: 0.8;
+        }
+        
+        /* Mobile-First Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                margin: 0;
+                width: 100%;
+                max-width: 100vw;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                letter-spacing: 1px;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+            }
+            
+            h2 {
+                font-size: 1.2em;
+                margin-bottom: 12px;
+            }
+            
+            h3 {
+                font-size: 1.5em;
+                margin: 10px 0 7px 0;
+            }
+            
+            .link-item {
+                width: 90%;
+                padding: 16px 18px;
+                margin: 10px auto;
+                font-size: 1em;
+            }
+            
+            .newsletter-form {
+                width: 90%;
+                padding: 12px;
+            }
+            
+            .newsletter-form input[type="email"] {
+                width: calc(100% - 20px);
+                max-width: 280px;
+                padding: 12px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            .newsletter-form input[type="submit"] {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .footer {
+                margin-top: 25px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+                letter-spacing: 0.5px;
+                word-wrap: break-word;
+            }
+            
+            h2 {
+                font-size: 1.1em;
+            }
+            
+            .link-item {
+                width: 95%;
+                padding: 14px 16px;
+                font-size: 0.95em;
+            }
+            
+            .newsletter-form {
+                width: 95%;
+                padding: 10px;
+            }
+            
+            .newsletter-form input[type="email"] {
+                width: calc(100% - 10px);
+                margin: 10px 0;
+            }
+            
+            /* Stack content sections with better spacing */
+            div[style*="margin: 15px auto"] {
+                margin: 20px auto !important;
+                width: 95% !important;
+            }
+            
+            .music-submission-form {
+                padding: 15px 20px;
+            }
         }
     </style>
 </head>
@@ -238,7 +499,7 @@
           method="POST"
           class="music-submission-form"
           id="music-form"
-          onsubmit="return validateSpotifyUrl();"
+          onsubmit="return handleFormSubmit(event);"
         >
           <div class="form-group">
             <label for="threads-username">Threads username*</label>
@@ -257,12 +518,25 @@
           </div>
           
           <div class="form-group">
-            <label for="bandcamp-url">Bandcamp artist home page (optional)</label>
+            <label for="bandcamp-url">Your Bandcamp home page (optional)</label>
             <input type="url" id="bandcamp-url" name="bandcamp-url">
+            <div id="bandcamp-url-error" style="color: #ff6666; font-size: 12px; margin-top: 5px; display: none;">Please enter a valid URL</div>
           </div>
           
           <div class="form-group">
-            <label for="email">Email (Optional, if you'd like occasional updates from Dave Hawkins, the artist)</label>
+            <label for="artist-website">Your artist website (optional)</label>
+            <input type="url" id="artist-website" name="artist-website">
+            <div id="artist-website-error" style="color: #ff6666; font-size: 12px; margin-top: 5px; display: none;">Please enter a valid URL</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="newsletter-url">Your newsletter signup URL (optional)</label>
+            <input type="url" id="newsletter-url" name="newsletter-url">
+            <div id="newsletter-url-error" style="color: #ff6666; font-size: 12px; margin-top: 5px; display: none;">Please enter a valid URL</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Your email (Optional, if you'd like occasional updates from Dave Hawkins, the artist)</label>
             <input type="email" id="email" name="email">
           </div>
           
@@ -316,7 +590,7 @@
     </div>
     
     <div class="footer">
-        <p>&copy; <script>document.write(new Date().getFullYear());</script> Dave Hawkins | <a href="https://iamdavehawkins.com" style="color: #999999; text-decoration: none;">iamdavehawkins.com</a></p>
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> Dave Hawkins | <a href="https://links.iamdavehawkins.com" style="color: #999999; text-decoration: none;">links.iamdavehawkins.com</a></p>
     </div>
     
     <script>
@@ -332,6 +606,97 @@
             }
             
             errorElement.style.display = 'none';
+            return true;
+        }
+        
+        function validateOptionalUrl(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const errorElement = document.getElementById(errorId);
+            
+            // If the field is empty, it's valid (since it's optional)
+            if (!input.value.trim()) {
+                errorElement.style.display = 'none';
+                return true;
+            }
+            
+            // Check if it's a valid URL
+            try {
+                new URL(input.value);
+                errorElement.style.display = 'none';
+                return true;
+            } catch (e) {
+                errorElement.style.display = 'block';
+                input.focus();
+                return false;
+            }
+        }
+        
+        function handleFormSubmit(event) {
+            // First validate Spotify URL (required)
+            if (!validateSpotifyUrl()) {
+                event.preventDefault();
+                return false;
+            }
+            
+            // Then validate optional URL fields if they have content
+            if (!validateOptionalUrl('bandcamp-url', 'bandcamp-url-error')) {
+                event.preventDefault();
+                return false;
+            }
+            
+            if (!validateOptionalUrl('artist-website', 'artist-website-error')) {
+                event.preventDefault();
+                return false;
+            }
+            
+            if (!validateOptionalUrl('newsletter-url', 'newsletter-url-error')) {
+                event.preventDefault();
+                return false;
+            }
+            
+            const emailInput = document.getElementById('email');
+            const emailValue = emailInput.value.trim();
+            
+            // If email is provided, also submit to Buttondown
+            if (emailValue) {
+                event.preventDefault();
+                
+                // Submit to Formspree
+                const formspreeForm = document.getElementById('music-form');
+                const formspreeData = new FormData(formspreeForm);
+                
+                fetch('https://formspree.io/f/xldbqajg', {
+                    method: 'POST',
+                    body: formspreeData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // Submit email to Buttondown
+                        const buttondownData = new FormData();
+                        buttondownData.append('email', emailValue);
+                        
+                        return fetch('https://buttondown.com/api/emails/embed-subscribe/iamdavehawkins', {
+                            method: 'POST',
+                            body: buttondownData
+                        });
+                    } else {
+                        throw new Error('Formspree submission failed');
+                    }
+                }).then(() => {
+                    // Show success message
+                    alert('Thanks! Your info has been submitted and you\'ve been subscribed to the newsletter.');
+                    formspreeForm.reset();
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting your form. Please try again.');
+                });
+                
+                return false;
+            }
+            
+            // No email provided, let form submit normally to Formspree
             return true;
         }
     </script>
